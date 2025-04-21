@@ -10,7 +10,7 @@ This project is a custom-built HTTP/HTTPS proxy server using Python and Flask. I
 - Caching pages for performance
 - Blocking/filtering specific sites
 - Throttling bandwidth for testing slow networks
-- Persisting cache across restarts
+
 
 ## 🛠️ Used Technologies & Libraries
 
@@ -19,8 +19,7 @@ This project is a custom-built HTTP/HTTPS proxy server using Python and Flask. I
 | `Flask`        | Web framework to expose the proxy server via HTTP routes                |
 | `requests`     | To fetch external web content (since Flask doesn’t handle that natively)|
 | `time`         | Used for cache expiration and throttling delays                         |
-| `json`         | For saving and loading cache in a persistent `.json` file               |
-| `atexit`       | To hook into application shutdown and persist cache gracefully          |
+
 
 ## 📂 File Structure
 
@@ -28,7 +27,6 @@ This project is a custom-built HTTP/HTTPS proxy server using Python and Flask. I
 proxy-server/
 │
 ├── proxy_server.py     # Main server implementation
-├── cache.json          # Persistent cache storage
 └── README.md           # This documentation
 ```
 
@@ -75,24 +73,8 @@ if time.time() - timestamp < CACHE_EXPIRY:
     return Response(content, content_type="text/html")
 ```
 
-### 3. 💾 Persistent Caching (File-Based)
 
-Why: Ensures cache survives application restarts.
-
-```python
-def load_cache():
-    try:
-        with open('cache.json', 'r') as f:
-            return json.load(f)
-    except:
-        return {}
-
-def save_cache():
-    with open('cache.json', 'w') as f:
-        json.dump(cache, f)
-```
-
-### 4. 🚫 Content Filtering
+### 3. 🚫 Content Filtering
 
 Blocks unwanted websites based on keywords.
 
@@ -104,7 +86,7 @@ for keyword in BLOCKED_KEYWORDS:
         return "Access to this site is blocked by proxy.", 403
 ```
 
-### 5. 🐢 Bandwidth Throttling
+### 4. 🐢 Bandwidth Throttling
 
 Slows down the response to simulate low-speed internet.
 
@@ -122,7 +104,7 @@ Used like:
 return Response(generate_throttled_response(content), content_type=...)
 ```
 
-### 6. 🔁 Generator Explanation
+### 5. 🔁 Generator Explanation
 
 Generators (with `yield`) let us stream data chunk-by-chunk instead of all at once, useful for throttling.
 
@@ -136,6 +118,5 @@ Generators (with `yield`) let us stream data chunk-by-chunk instead of all at on
 
 ## 👨‍💻 Credits
 
-- Developer: You!
-- Assistant: ChatGPT (co-author 😄)
+- Developer: Moataz salah ezzat!
 
