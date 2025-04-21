@@ -79,7 +79,7 @@ if time.time() - timestamp < CACHE_EXPIRY:
 Blocks unwanted websites based on keywords.
 
 ```python
-BLOCKED_KEYWORDS = ["facebook", "porn", "badsite"]
+BLOCKED_KEYWORDS = ["facebook", "spam", "badsite"]
 
 for keyword in BLOCKED_KEYWORDS:
     if keyword in target_url.lower():
